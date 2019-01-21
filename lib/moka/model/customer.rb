@@ -6,7 +6,7 @@ module Moka
 
     def initialize(opts = {})
       opts.each do |o|
-        send(o.first, o.last)
+        send("#{o.first.to_s}=".to_sym, o.last)
       end
     end
 

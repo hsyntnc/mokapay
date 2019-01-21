@@ -5,6 +5,12 @@ module Moka
                   :bank_name, :card_number_first_six, :card_number_last_four,
                   :customer, :response
 
+    def initialize(opts = {})
+      opts.each do |o|
+        send("#{o.first.to_s}=".to_sym, o.last)
+      end
+    end
+
     def create
       response        = RestClient.post Moka.endpoints.add_card, create_hash
       self.response   = JSON.parse(response)
