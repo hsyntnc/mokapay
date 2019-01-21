@@ -20,24 +20,28 @@ module Moka
       response          = RestClient.post Moka.endpoints.direct_payment, payment_hash
       self.response     = JSON.parse(response.body)
       self.result_code  = self.response['ResultCode']
+      self.response
     end
 
     def pay_three_d
       response          = RestClient.post Moka.endpoints.direct_payment_three_d, three_d_payment_hash
       self.response     = JSON.parse(response.body)
       self.result_code  = self.response['ResultCode']
+      self.response
     end
 
     def void
       response          = RestClient.post Moka.endpoinst.void, void_hash
       self.response     = JSON.parse(response.body)
       self.result_code  = self.response['ResultCode']
+      self.response
     end
 
     def refund
       response          = RestClient.post Moka.endpoints.refund, refund_hash
       self.response     = JSON.parse(response.body)
       self.result_code  = self.response['ResultCode']
+      self.response
     end
 
     def success?

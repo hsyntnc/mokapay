@@ -1,6 +1,6 @@
 # Mokapay
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mokapay`. To experiment with that code, run `bin/console` for an interactive prompt.
+Unofficial API wrapper for [MOKA](https://www.moka.com/) Payment System.
 
 
 ## Installation
@@ -30,17 +30,49 @@ Moka.configure do |config|
   config.env          = 'test' # Default production 
 end
 ```
+Note: When making any request, you can use all parameters on the official [documentation](https://developer.moka.com/home.php?page=3dsiz-odeme) with snake case.
+For example you can use card_holder_full_name for CardHolderFullName on official documentation.
 
 
-## Development
+#### Create Direct Payment
+```ruby
+payment = Moka::Payment.new({
+  card_holder_full_name: 'Huseyin TUNC',
+  card_number: '5269552233334444',
+  exp_month: '12',
+  exp_year: '2022',
+  cvc_number: '000',
+  amount: 10.10,
+  client_ip: '1.2.3.4',
+  other_trx_code: 1
+})
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+payment.pay # Make request (also returns the response)
+payment.success? # To check if it success
+payment.response # Returns the response 
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#### Create 3D Payment
+```ruby
+payment = Moka::Payment.new({
+  card_holder_full_name: 'Huseyin TUNC',
+  card_number: '5269552233334444',
+  exp_month: '12',
+  exp_year: '2022',
+  cvc_number: '000',
+  amount: 10.10,
+  client_ip: '1.2.3.4',
+  other_trx_code: 1,
+  redirect_url: 'http://localhost:3000/payments/success'
+})
+
+payment.pay_three_d
+```
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/mokapay. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/hsyntnc/mokapay. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
