@@ -4,7 +4,7 @@ module Moka
                   :cvc_number, :amount, :currency, :installment_number, :client_ip,
                   :other_trx_code, :is_pre_auth, :is_pool_payment, :integrator_id,
                   :software, :redirect_url, :redirect_type, :description,
-                  :buyer, :credit_card,
+                  :buyer, :credit_card, :card_token,
 
                   :virtual_post_order_id, :void_refund_reason, :refund_request_id,
 
@@ -58,6 +58,7 @@ module Moka
               "ExpMonth": exp_month,
               "ExpYear": exp_year,
               "CvcNumber": cvc_number,
+              "CardToken": card_token,
               "Amount": amount,
               "Currency": currency,
               "InstallmentNumber": installment_number || 0,
