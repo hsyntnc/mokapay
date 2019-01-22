@@ -6,7 +6,7 @@ module Moka
                   :software, :redirect_url, :redirect_type, :description,
                   :buyer, :credit_card, :card_token,
 
-                  :virtual_post_order_id, :void_refund_reason, :refund_request_id,
+                  :virtual_pos_order_id, :void_refund_reason, :refund_request_id,
 
                   :response, :result_code
 
@@ -31,7 +31,7 @@ module Moka
     end
 
     def void
-      response          = RestClient.post Moka.endpoinst.void, void_hash
+      response          = RestClient.post Moka.endpoints.void, void_hash
       self.response     = JSON.parse(response.body)
       self.result_code  = self.response['ResultCode']
       self.response
@@ -93,7 +93,7 @@ module Moka
       {
           "PaymentDealerAuthentication": Moka.configuration.config_hash,
           "PaymentDealerRequest": {
-              "VirtualPosOrderId": virtual_post_order_id,
+              "VirtualPosOrderId": virtual_pos_order_id,
               "ClientIP": client_ip,
               "VoidRefundReason": void_refund_reason || 2
           }
@@ -105,7 +105,7 @@ module Moka
       {
           "PaymentDealerAuthentication": Moka.configuration.config_hash,
           "PaymentDealerRequest": {
-              "VirtualPosOrderId": virtual_post_order_id,
+              "VirtualPosOrderId": virtual_pos_order_id,
               "OtherTrxCode": "",
               "Amount": amount
           }
